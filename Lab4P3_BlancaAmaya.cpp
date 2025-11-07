@@ -1,8 +1,9 @@
-#include <iostream>
+﻿#include <iostream>
 #include <vector>
 #include <cstdlib>
 #include <ctime>
 #include <string>
+#include <locale>
 using namespace std;
 
 vector<int> categorias;
@@ -28,18 +29,33 @@ void quitarCategoria() {
     for (int i = 0; i < categorias.size(); i++) {
         cout << "Categorías No. " << i + 1 << ": Valor = " << categorias[i] << endl;
     }
-    int opcion_eliminar;
-    cout << "Escriba categoría a eliminar: "; cin >> opcion_eliminar;
-    
+    int indice;
+    cout << "Escriba categoría a eliminar: ";
+    cin >> indice;
+
+    if (indice < 1 || indice > categorias.size()) {
+        cout << "Categoría invalida" << endl;
+        return;
+    }
+    categorias.erase(categorias.begin() + indice - 1);
+    cout << "Categoría eliminada exitosamente!" << endl;
 }
 
 // 3. Aumentar  =========================================
 void aumentarCategoria() {
-
+    if (categorias.empty()) {
+        cout << "No se han creado categorías" << endl;
+    }
     cout << endl;
     cout << "Categorías existentes:" << endl;
     for (int i = 0; i < categorias.size(); i++) {
         cout << "Categorías No. " << i + 1 << ": Valor = " << categorias[i] << endl;
+    }
+    int indice;
+    cout << "Escriba categoría a aumentar: ";
+    cin >> indice;
+    if (indice < 1 || indice > categorias.size()) {
+        cout << "Categoría invalida" << endl;
     }
 }
 
@@ -68,13 +84,13 @@ void PointerGraphicator_Menu() {
         cin >> opcion;
         switch (opcion) {
         case 1:
-
+            agregarCategoria();
             break;
         case 2:
-
+            quitarCategoria();
             break;
         case 3:
-
+            aumentarCategoria();
             break;
         case 4:
 
@@ -110,7 +126,7 @@ void generandoPos(int& x, int& y, int& z, int tamanio) {
 }
 
 char*** crearMatriz3D(int tamanio) {
-    char*** matriz = new char* [tamanio];
+    char*** matriz = new char** [tamanio];
     for (int i = 0; i < tamanio; i++) {
         matriz[i] = new char* [tamanio];
         for (int j = 0; j < tamanio; j++) {
@@ -215,7 +231,7 @@ void FindMe_Menu() {
         cout << "3. Difícil" << endl;
         cout << "4. Insano" << endl;
         cout << "5. Salir" << endl;
-        cout << "Ingrese la opción que desea elegir: " << endl;
+        cout << "Ingrese la opción que desea elegir: ";
         cin >> opcion;
         switch (opcion) {
         case 1:
@@ -250,14 +266,14 @@ void menu() {
         cout << "1. Find Me!" << endl;
         cout << "2. Pointer Graphicator" << endl;
         cout << "3. Salir" << endl;
-        cout << "Ingrese opcion que desea elegir: " << endl;
-        cin >> opcion;
+        cout << "Ingrese opcion que desea elegir: ";
+        cin >> opcion; cout << endl;
         switch (opcion) {
         case 1:
-            PointerGraphicator_Menu();
+            FindMe_Menu();
             break;
         case 2:
-            FindMe_Menu();
+            PointerGraphicator_Menu();
             break;
         case 3:
             cout << "Saliendo..." << endl;
@@ -272,6 +288,7 @@ void menu() {
 }
 
 int main() {
+    setlocale(LC_ALL, "spanish");
     srand(time(0));
     menu();
 }
