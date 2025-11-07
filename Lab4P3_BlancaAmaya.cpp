@@ -95,9 +95,6 @@ void verCategoria() {
     }
 }
 
-// --> Liberar memoria (6. Graficar) ================
-
-
 // 6. Graficar =======================================
 void graficar() {
     if (categorias.empty()) {
@@ -123,17 +120,29 @@ void graficar() {
     }
 
     // Mostrando la grafica de las categorias
-    for (int i = 0; i < filas; i++) {
+    /*for (int i = 0; i < filas; i++) {
         for (int j = 0; j < columnas; j++) {
             if (tablero[i][j] == '0') {
                 cout << "[0]";
             }
             else {
-                cout << "   ";
+                cout << "  ";
             }
         }
         cout << endl;
+    }*/
+    for (int i = 0; i < categorias.size(); i++) {
+        cout << "Categorías No. " << i + 1 << " | ";
+        for (int j = 0; j < categorias[i]; j++) {
+            cout << "[0]";
+        }
+        cout << endl;
     }
+    // --> Liberar memoria (6. Graficar) ================
+    for (int i = 0; i < filas; i++) {
+        delete[] tablero[i];
+    }
+    delete[] tablero;
 }
 
 void PointerGraphicator_Menu() {
