@@ -5,9 +5,17 @@
 #include <string>
 using namespace std;
 
-char** matriz = nullptr;
+vector<int> categorias;
 
 // Ejercicio #2 ---------------------------------------
+void agregarCategoria() {
+    if (categorias.size() >= 10) {
+        cout << "Se ha alcanzado el maximo de categorias (10)" << endl;
+        return;
+    }
+    categorias.push_back(0);
+
+}
 void PointerGraphicator_Menu() {
     bool resp = true;
     int opcion;
@@ -64,6 +72,17 @@ void generandoPos(int& x, int& y, int& z, int tamanio) {
     z = rand() % tamanio;
 }
 
+char*** crearMatriz3D(int tamanio) {
+    char*** matriz = new char* [tamanio];
+    for (int i = 0; i < tamanio; i++) {
+        matriz[i] = new char* [tamanio];
+        for (int j = 0; j < tamanio; j++) {
+            matriz[i][j] = new char[tamanio];
+        }
+    }
+    return matriz;
+}
+
 // Iniciando la matriz (vacia)
 void matriz_iniciar(char*** matriz, int tamanio) {
     for (int i = 0; i < tamanio; i++) {
@@ -75,14 +94,15 @@ void matriz_iniciar(char*** matriz, int tamanio) {
     }
 }
 
-char*** crearMatriz3D(int tamanio) {
-    matriz = new char* [tamanio];
+// --> Liberando Memoria
+void liberarMemoria(char*** matriz, int tamanio) {
     for (int i = 0; i < tamanio; i++) {
-        matriz[i] = new char[tamanio];
         for (int j = 0; j < tamanio; j++) {
-            matriz[i][j] = ' ';
+            delete[] matriz[i][j];
         }
+        delete[] matriz[i];
     }
+    delete[] matriz;
 }
 
 
@@ -114,8 +134,37 @@ void FindMe(int dificultad) {
     char*** matriz = crearMatriz3D(tamanio);
     // Iniciando la matriz
     matriz_iniciar(matriz, tamanio);
-    cout << "Ingresa las coordenadas en las que creas que me encuentro" << endl;
-
+    
+    int x_ganadora, y_ganadora, z_ganadora;
+    generandoPos(x_ganadora, y_ganadora, z_ganadora, tamanio);
+    matriz[x_ganadora][y_ganadora][z_ganadora] = '0';
+    bool ganado = false;
+    while (vidas > 0 && !ganado) {
+        cout << "Vidas: " << vidas << endl;
+        cout << "Ingresa las coordenadas en las que creas que me encuentro" << endl;
+        int x, y, z;
+        cout << "X: "; cin >> x;
+        cout << "Y: "; cin >> y;
+        cout << "Z: "; cin >> z;
+        // Verificando si las pos ingresadas estan fuera de rango
+        if (!validarPos(x, y, z, tamanio)) {
+            cout << "Coordenada fuera de rango" << endl;
+            continue;
+        } 
+        if (x == x_ganadora && y == y_ganadora && z == z_ganadora) {
+            cout << "WOW!!! ME ENCONTRASTE" << endl;
+            ganado = true;
+        }
+        else {
+            cout << "JAJAJA VUELVE A INTENTARLO" << endl;
+            vidas--;
+        }
+    }
+    if (!ganado) {
+        cout << "Sorry, te quedaste sin vidas" << endl;
+        cout << "Las coordenadas correctas eran: " << "X= " << x_ganadora << " Y=" << y_ganadora << " Z=" << z_ganadora << endl;
+    }
+    liberarMemoria(matriz, tamanio);
 }
 
 void FindMe_Menu() {
@@ -134,12 +183,16 @@ void FindMe_Menu() {
         switch (opcion) {
         case 1:
             FindMe(1);
+            break;
         case 2:
             FindMe(2);
+            break;
         case 3:
             FindMe(3);
+            break;
         case 4:
             FindMe(4);
+            break;
         case 5:
             cout << "Saliendo..." << endl;
             resp = false;
