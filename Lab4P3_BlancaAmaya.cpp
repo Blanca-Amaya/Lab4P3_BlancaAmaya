@@ -51,21 +51,51 @@ void PointerGraphicator_Menu() {
 }
 
 // Ejercicio #1 ---------------------------------------
+void matriz_iniciar(char*** matriz, int tamanio) {
+
+}
+
+// --> Liberar memoria
+void liberarMatriz3D(char*** matriz, int tamanio) {
+    for (int i = 0; i < tamanio; i++) {
+        for (int j = 0; j < tamanio; j++) {
+            delete[] matriz[i][j];
+        }
+        delete matriz[i];
+    }
+    delete matriz;
+}
+
+char*** crearMatriz3D(int tamanio) {
+    
+}
+
 void FindMe(int dificultad) {
     int tamanio, vidas;
     switch (dificultad) {
     case 1:
         tamanio = 2; vidas = 5;
+        cout << "*Fácil*" << endl;
+        break;
     case 2:
         tamanio = 3; vidas = 4;
+        cout << "*Medio*" << endl;
+        break;
     case 3:
         tamanio = 5; vidas = 3;
+        cout << "*Difícil*" << endl;
+        break;
     case 4:
         tamanio = 6; vidas = 2;
+        cout << "*Insano*" << endl;
+        break;
     default:
         cout << "Dificultad ingresada invalida, 1-4" << endl;
         break;
     }
+
+    // --> Creando la matriz dependiendo de la dificultad elegida
+    char*** matriz = crearMatriz3D(tamanio);
 }
 
 void FindMe_Menu() {
