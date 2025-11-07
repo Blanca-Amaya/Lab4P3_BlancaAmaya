@@ -56,17 +56,48 @@ void aumentarCategoria() {
     cin >> indice;
     if (indice < 1 || indice > categorias.size()) {
         cout << "Categoría invalida" << endl;
+        return;
+    }
+    if (categorias[indice - 1] < 10) {
+        categorias[indice - 1]++;
+        cout << "Categoría aumentada" << endl;
     }
 }
 
 // 4. Decrementar  ======================================
 void decrementarCategoria() {
-
+    if (categorias.empty()) {
+        cout << "No se han creado categorías" << endl;
+    }
+    cout << endl;
+    cout << "Categorías existentes:" << endl;
+    for (int i = 0; i < categorias.size(); i++) {
+        cout << "Categorías No. " << i + 1 << ": Valor = " << categorias[i] << endl;
+    }
+    int indice;
+    cout << "Escriba categoría a decrementar: ";
+    cin >> indice;
+    if (categorias[indice - 1] < 10) {
+        categorias[indice - 1]--;
+        cout << "Categoría decrementada" << endl;
+    }
 }
 
 // 5. Ver Categorias ====================================
 void verCategoria() {
-    cout << "" << endl;
+    if (categorias.empty()) {
+        cout << "No se han creado categorías" << endl;
+    }
+    cout << endl;
+    cout << "Categorías existentes:" << endl;
+    for (int i = 0; i < categorias.size(); i++) {
+        cout << "Categorías No. " << i + 1 << ": Valor = " << categorias[i] << endl;
+    }
+}
+
+// 6. Graficar =======================================
+void graficar() {
+
 }
 
 void PointerGraphicator_Menu() {
@@ -93,13 +124,13 @@ void PointerGraphicator_Menu() {
             aumentarCategoria();
             break;
         case 4:
-
+            decrementarCategoria();
             break;
         case 5:
-
+            verCategoria();
             break;
         case 6:
-
+            graficar();
             break;
         case 7:
             cout << "Saliendo..." << endl;
