@@ -337,6 +337,7 @@ void FindMe_Menu() {
 void menu() {
     bool resp = true;
     int opcion;
+
     while (resp) {
         cout << "|*|*|*|*|*|*|*| Menú |*|*|*|*|*|*|*|" << endl;
         cout << "1. Find Me!" << endl;
@@ -357,7 +358,6 @@ void menu() {
             break;
         default:
             cout << "Opcion invalida" << endl;
-            resp = false;
             break;
         }
     }
