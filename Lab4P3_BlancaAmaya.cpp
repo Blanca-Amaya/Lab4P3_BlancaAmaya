@@ -8,14 +8,51 @@ using namespace std;
 vector<int> categorias;
 
 // Ejercicio #2 ---------------------------------------
+// 1. Agregar =========================================
 void agregarCategoria() {
     if (categorias.size() >= 10) {
-        cout << "Se ha alcanzado el maximo de categorias (10)" << endl;
+        cout << "Se ha alcanzado el maximo de categorías (10)" << endl;
         return;
     }
     categorias.push_back(0);
+    cout << "Categoría agregada" << endl;
+}
+
+// 2. Quitar  =========================================
+void quitarCategoria() {
+    if (categorias.empty()) {
+        cout << "No se han creado categorías" << endl;
+    }
+    cout << endl;
+    cout << "Categorías existentes:" << endl;
+    for (int i = 0; i < categorias.size(); i++) {
+        cout << "Categorías No. " << i + 1 << ": Valor = " << categorias[i] << endl;
+    }
+    int opcion_eliminar;
+    cout << "Escriba categoría a eliminar: "; cin >> opcion_eliminar;
+    
+}
+
+// 3. Aumentar  =========================================
+void aumentarCategoria() {
+
+    cout << endl;
+    cout << "Categorías existentes:" << endl;
+    for (int i = 0; i < categorias.size(); i++) {
+        cout << "Categorías No. " << i + 1 << ": Valor = " << categorias[i] << endl;
+    }
+}
+
+// 4. Decrementar  ======================================
+void decrementarCategoria() {
 
 }
+
+// 5. Ver Categorias ====================================
+void verCategoria() {
+    cout << "" << endl;
+}
+
 void PointerGraphicator_Menu() {
     bool resp = true;
     int opcion;
