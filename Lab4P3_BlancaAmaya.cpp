@@ -5,6 +5,8 @@
 #include <string>
 using namespace std;
 
+char** matriz = nullptr;
+
 // Ejercicio #2 ---------------------------------------
 void PointerGraphicator_Menu() {
     bool resp = true;
@@ -51,24 +53,38 @@ void PointerGraphicator_Menu() {
 }
 
 // Ejercicio #1 ---------------------------------------
-void matriz_iniciar(char*** matriz, int tamanio) {
-
+bool validarPos(int x, int y, int z, int tamanio) {
+    return (x >= 0 && x < tamanio && y >= 0 && y < tamanio && z >= 0 && z < tamanio);
 }
 
-// --> Liberar memoria
-void liberarMatriz3D(char*** matriz, int tamanio) {
+// --> generando las posiciones
+void generandoPos(int& x, int& y, int& z, int tamanio) {
+    x = rand() % tamanio;
+    y = rand() % tamanio;
+    z = rand() % tamanio;
+}
+
+// Iniciando la matriz (vacia)
+void matriz_iniciar(char*** matriz, int tamanio) {
     for (int i = 0; i < tamanio; i++) {
         for (int j = 0; j < tamanio; j++) {
-            delete[] matriz[i][j];
+            for (int k = 0; k < tamanio; k++) {
+                matriz[i][j][k] = ' ';
+            }
         }
-        delete matriz[i];
     }
-    delete matriz;
 }
 
 char*** crearMatriz3D(int tamanio) {
-    
+    matriz = new char* [tamanio];
+    for (int i = 0; i < tamanio; i++) {
+        matriz[i] = new char[tamanio];
+        for (int j = 0; j < tamanio; j++) {
+            matriz[i][j] = ' ';
+        }
+    }
 }
+
 
 void FindMe(int dificultad) {
     int tamanio, vidas;
@@ -96,6 +112,10 @@ void FindMe(int dificultad) {
 
     // --> Creando la matriz dependiendo de la dificultad elegida
     char*** matriz = crearMatriz3D(tamanio);
+    // Iniciando la matriz
+    matriz_iniciar(matriz, tamanio);
+    cout << "Ingresa las coordenadas en las que creas que me encuentro" << endl;
+
 }
 
 void FindMe_Menu() {
